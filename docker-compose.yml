@@ -1,0 +1,12 @@
+version:  "3"
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Asel.2017!!
+      MYSQL_DATABASE: asel_db
+      MYSQL_USER: asel
+      MYSQL_PASSWORD: db_asel123_
+    ports:
+      - "3306:3306"
