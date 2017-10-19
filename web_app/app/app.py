@@ -32,18 +32,19 @@ def index():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if 'email' in session:
-        return redirect(url_for('index'))
+        abort(401)
 
     if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+        req_data = json.loads(request.data.decode('utf-8'))
+        email = req_data['email']
+        password = req_data['password']
         with connection.cursor() as cursor:
             cursor.execute("select `email` from `users` where \
             `email`=%s and `password`=%s", (email, password))
             user = cursor.fetchone()
             if user:
                 session['email'] = user['email']
-                return redirect(url_for('index'))
+                return json.dumps({'next': url_for('index')})
             else:
                 return json.dumps({'error': 'E-Mail or Password is not correct'})
     else:
@@ -52,16 +53,17 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    name = request.form['name']
-    email = request.form['email']
-    country = request.form['country']
-    password = request.form['password']
-    password2 = request.form['password2']
+    req_data = json.loads(request.data.decode('utf-8'))
+    name = req_data['name']
+    email = req_data['email']
+    country = req_data['country']
+    password = req_data['password']
+    password2 = req_data['password2']
     if password != password2:
-        abort(401)
+        abort(418)
 
     if not name or not email or not country:
-        abort(401)
+        abort(418)
 
     with connection.cursor() as cursor:
         cursor.execute("select `email` from `users` where email=%s", (email,))
@@ -73,7 +75,7 @@ def signup():
             VALUES (%s, %s, %s, %s)", (email, name, country, password))
         connection.commit()
         session['email'] = email
-        return redirect(url_for('index'))
+        return json.dumps({'next': url_for('index')})
 
 
 @app.route('/logout', methods=['GET'])
