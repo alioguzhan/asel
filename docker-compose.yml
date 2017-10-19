@@ -10,3 +10,11 @@ services:
       MYSQL_PASSWORD: db_asel123_
     ports:
       - "3306:3306"
+  web_app:
+    build: ./web_app
+    environment:
+      - DEBUG=0
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db

@@ -1,8 +1,12 @@
+import os
 import json
 from flask import Flask, render_template, request, session, redirect, url_for, abort
 import pymysql.cursors
 
-connection = pymysql.connect(host='localhost',
+DEBUG = bool(int(os.environ.get('DEBUG', 1)))
+DB_HOST = 'localhost' if DEBUG else 'db'
+
+connection = pymysql.connect(host=DB_HOST,
                              user='asel',
                              password='db_asel123_',
                              db='asel_db',
@@ -85,4 +89,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=DEBUG, host='0.0.0.0')
