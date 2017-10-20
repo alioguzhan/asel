@@ -31,5 +31,5 @@ RUN yarn install
 
 EXPOSE 5000
 
-CMD [ "./wait-for-it.sh", "db:3306", "-t", "30", "--", "yarn", "start"]
+CMD [ "./wait-for-it.sh", "db:3307", "-t", "30", "--", "yarn", "start"]
 

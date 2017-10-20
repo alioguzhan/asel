@@ -9,7 +9,7 @@ services:
       MYSQL_USER: asel
       MYSQL_PASSWORD: db_asel123_
     ports:
-      - "3306:3306"
+      - "3307:3307"
   web_app:
     build: ./web_app
     environment:

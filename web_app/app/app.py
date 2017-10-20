@@ -5,8 +5,10 @@ import pymysql.cursors
 
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 DB_HOST = 'localhost' if DEBUG else 'db'
+DB_PORT = 3306 if DEBUG else 3307
 
 connection = pymysql.connect(host=DB_HOST,
+                             port=3307,
                              user='asel',
                              password='db_asel123_',
                              db='asel_db',
