@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="web_app/app/static/logo.png"/>
+</p>
+
 # Asel
 code-named: Asel --- An authentication system trial with `Flask` - `MySQL` - `Docker`
 
